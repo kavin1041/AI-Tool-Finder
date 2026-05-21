@@ -1,0 +1,38 @@
+/* tool-detail.css - Tool Detail Page Specific Styles */
+
+.tool-hero {
+  background: linear-gradient(rgba(99,102,241,0.9), rgba(139,92,246,0.9)), url('https://source.unsplash.com/random/1600x900/?ai') center/cover;
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
+  border-radius: 0 0 2rem 2rem;
+}
+
+.tool-hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.review-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  margin-bottom: 3rem;
+}
+
+body.dark .review-form {
+  background: #1e293b;
+}
+
+.reviews-list .review {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #10b981;
+}
+
+body.dark .reviews-list .review {
+  background: #1e293b;
+}

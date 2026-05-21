@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin - AI Tool Finder</title>
+  <!-- Tailwind + DaisyUI CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="bg-base-100 min-h-screen">
+
+  <!-- Login Form (shown when not logged in) -->
+  <div id="loginForm" class="flex items-center justify-center min-h-screen bg-base-200">
+    <div class="card w-96 bg-base-100 shadow-2xl">
+      <div class="card-body">
+        <h2 class="card-title text-center text-2xl mb-6">Admin Login</h2>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Username</span>
+          </label>
+          <input type="text" id="username" value="admin" class="input input-bordered" placeholder="admin" />
+        </div>
+        <div class="form-control mt-4">
+          <label class="label">
+            <span class="label-text">Password</span>
+          </label>
+          <input type="password" id="password" value="admin123" class="input input-bordered" placeholder="admin123" />
+        </div>
+        <div class="mt-6">
+          <button onclick="adminLogin()" class="btn btn-primary w-full">Login</button>
+        </div>
+        <p id="loginMessage" class="text-error text-center mt-4"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard (hidden until login) -->
+  <div id="adminDashboard" class="hidden container mx-auto p-8">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-4xl font-bold">Admin Dashboard</h1>
+      <button onclick="logout()" class="btn btn-error btn-lg">Logout</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs tabs-boxed mb-8">
+      <a class="tab tab-lg tab-active" onclick="showSection('tools')">Manage Tools</a>
+      <a class="tab tab-lg" onclick="showSection('reviews')">Moderate Reviews</a>
+    </div>
+
+    <!-- Manage Tools Section -->
+    <div id="toolsSection">
+      <div class="mb-6">
+        <button onclick="showAddToolModal()" class="btn btn-success btn-lg">
+          Add New Tool
+        </button>
+      </div>
+
+      <div id="adminToolsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Tools will be loaded here by JS -->
+      </div>
+    </div>
+
+    <!-- Moderate Reviews Section -->
+    <div id="reviewsSection" class="hidden">
+      <h2 class="text-2xl font-bold mb-6">All Reviews</h2>
+      <div id="adminReviewsList" class="space-y-4">
+        <!-- Reviews will be loaded here by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Tool Modal -->
+  <dialog id="toolModal" class="modal">
+    <div class="modal-box w-11/12 max-w-2xl">
+      <h3 class="font-bold text-2xl mb-6" id="modalTitle">Add New Tool</h3>
+      
+      <input type="hidden" id="editToolId" />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text font-medium">Tool Name</span>
+          </label>
+          <input type="text" id="toolName" class="input input-bordered" required />
+        </div>
+
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text font-medium">Use Case</span>
+          </label>
+          <input type="text" id="toolUseCase" class="input input-bordered" required />
+        </div>
+
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text font-medium">Category</span>
+          </label>
+          <input type="text" id="toolCategory" class="input input-bordered" required />
+        </div>
+
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text font-medium">Pricing Type</span>
+          </label>
+          <input type="text" id="toolPricing" class="input input-bordered" required />
+        </div>
+      </div>
+
+      <div class="modal-action mt-8">
+        <form method="dialog">
+          <button class="btn btn-ghost">Cancel</button>
+        </form>
+        <button onclick="saveTool()" class="btn btn-primary ml-3">Save Tool</button>
+      </div>
+    </div>
+    <div class="form-control">
+  <label class="label"><span class="label-text">Tool URL (hyperlink)</span></label>
+  <input type="url" id="toolUrl" placeholder="https://chat.openai.com" class="input input-bordered" />
+</div>
+<div class="form-control">
+  <label class="label"><span class="label-text">Tool Website URL</span></label>
+  <input type="url" id="toolUrl" placeholder="https://example.com" class="input input-bordered" />
+</div>
+  </dialog>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script>
+    // Auto-show dashboard if already logged in
+    if (localStorage.getItem('adminToken')) {
+      document.getElementById('loginForm').classList.add('hidden');
+      document.getElementById('adminDashboard').classList.remove('hidden');
+      loadAdminData();
+    }
+
+    // Tab switching
+    function showSection(section) {
+      document.getElementById('toolsSection').classList.toggle('hidden', section !== 'tools');
+      document.getElementById('reviewsSection').classList.toggle('hidden', section !== 'reviews');
+      
+      // Update active tab
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('tab-active'));
+      event.target.classList.add('tab-active');
+    }
+  </script>
+</body>
+</html>

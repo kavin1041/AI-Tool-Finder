@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Tool Finder</title>
+  <style>
+  .group:hover .hover\\:bg-primary-dark {
+    background-color: #4f46e5 !important; /* Darker blue on hover */
+  }
+  .hover\\:scale-105 {
+    transform: scale(1.05);
+  }
+  .hover\\:-translate-y-3 {
+    transform: translateY(-12px);
+  }
+</style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" />
+</head>
+<body class="bg-base-100 min-h-screen">
+  <div class="navbar bg-base-200 shadow-lg">
+    <div class="flex-1">
+      <h1 class="text-2xl font-bold px-4">AI Tool Finder</h1>
+    </div>
+    <div class="flex-none">
+      <a href="admin.html" class="btn btn-primary mr-4">Admin Login</a>
+    </div>
+  </div>
+  <div class="container mx-auto p-6">
+    <!-- Filters -->
+    <div class="card bg-base-200 shadow-xl p-6 mb-8">
+      <h2 class="text-xl font-semibold mb-4">Filters</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <select id="categoryFilter" class="select select-bordered">
+          <option value="">All Categories</option>
+        </select>
+
+        <select id="pricingFilter" class="select select-bordered">
+          <option value="">All Pricing</option>
+        </select>
+
+        <input type="number" id="minRatingFilter" placeholder="Min Rating (0-5)" min="0" max="5" step="0.5" class="input input-bordered" />
+
+        <button onclick="fetchTools()" class="btn btn-primary">Apply Filters</button>
+      </div>
+    </div>
+
+    <!-- Tools Grid -->
+    <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Tools injected here -->
+    </div>
+  </div>
+  <div id="toolsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+  <!-- cards appear here -->
+</div>
+
+  <script src="js/main.js"></script>
+  <script>
+    window.onload = fetchTools;
+  </script>
+</body>
+</html>
